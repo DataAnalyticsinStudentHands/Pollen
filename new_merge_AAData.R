@@ -59,6 +59,10 @@ pollen[pollen==0] = NA
 pollen = pollen[rowSums(is.na(pollen[ ,3:length(pollen[1, ])]))!=(length(pollen[1, ])-2), ]
 pollen = pollen[ ,colSums(is.na(pollen))!=length(pollen[,1])]
 rownames(pollen) = 1:length(pollen[,1])
+names(pollen)[names(pollen)=="Asteraceae..Excluding.Ambrosia.and.Artemisia."] <- "Asteraceae"
+pollen$Chenopodiaceae.Amaranthaceae = pollen$Chenopodiaceae.Amaranthaceae + pollen$Chenopodiaceae.Amaranthaceae.
+pollen = subset(pollen, select=-c(Chenopodiaceae.Amaranthaceae.))
+
 
 write.csv(pollen,"/Volumes/KINGSTON/Pollen/AApollen.csv")
 
