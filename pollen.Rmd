@@ -53,17 +53,45 @@ for(i in 3:length(names(type_totals))){
   names(temp) = names(type_totals2)
   type_totals2 = rbind(type_totals2,temp)
 }
-
-ggplot(type_totals2, aes(x = Type, y = Total)) +
-  geom_bar(color="firebrick",stat = "identity") +
-  coord_flip() + 
-  facet_grid(City ~ .)
+Cities=ggplot(type_totals2, aes(x = Type, y = Total)) +
+       geom_bar(color="firebrick",stat = "identity") +
+       coord_flip() + 
+       facet_grid(City ~ .)
+```
+```{r fig.width = 12, fig.height = 70}
+Cities
 ```
 
-Now lets look at 
+And here's pollen levels overall:
 
 ```{r echo = FALSE}
+type_totals3 = type_totals[ ,c(1,2)]
+names(type_totals3)[2] = "Total"
 
+for (i in 1:length(type_totals[ ,1])){
+  type_totals3[i,2] = sum(type_totals[i,2:length(type_totals[1, ])])
+}
+
+kable(type_totals3)
+
+Overall=ggplot(type_totals3, aes(x = Type, y = Total)) +
+        geom_bar(color="firebrick",stat = "identity") +
+        coord_flip()
+```
+```{r}
+Overall
 ```
 
+We can see from these observations that the data from Louisville seems to be recorded badly. It appears that only the type of pollen was noted, not the species. We will not throw it out, but going forward we will remember that it is more simplistic than the other data.
+It also appears that it would be sensical to toss out Arecaceae, Corylus, Olea, Tilia, and Typha, given the tiny counts of each, especially Olea.
 
+
+```{r echo = FALSE, include = FALSE}
+pollen = subset(pollen, select=-c(Arecaceae, Corylus, Olea, Tilia, Typha))
+
+OverTime = ggplot(pollen, aes(x = Date, y = Total.Pollen.Count)) +
+  geom_point()
+```
+```{r}
+OverTime
+```
