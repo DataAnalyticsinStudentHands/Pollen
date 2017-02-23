@@ -1,5 +1,5 @@
 ---
-title: "pollen"
+title: "Pollen Data Exploration"
 output: html_document
 ---
 
