@@ -18,10 +18,11 @@ library(knitr)
 Lets look at total amounts of all kinds of pollen throughout each city:
 
 ```{r echo = FALSE}
-setwd("/Volumes/KINGSTON/Pollen")
-pollen = read.delim("AApollen.csv", header = TRUE, sep = ",")
+setwd("~/Pollen")
+pollen = read.delim("AApollen.csv", header = TRUE, sep = ",", stringsAsFactors = FALSE)
 pollen = pollen[,-c(1)]
-city_names = levels(pollen[,1])
+city_names = c("College Station", "Flower Mound", "Georgetown", "Houston", "Knoxville", "Lexington", "Little Rock", 
+               "Louisville", "Oklahoma City", "Rogers", "San Antonio", "Tulsa", "Waco")
 pollen[is.na(pollen)] = 0
 pollen_types = names(pollen[,-c(1:3)])
 
@@ -44,6 +45,8 @@ for(j in 1:length(city_names)) {
   type_totals[,j+1] = temp_type_totals
 }
 
+type_totals = type_totals[order(type_totals$Type),]
+rownames(type_totals) = c(1:length(type_totals[ ,1]))
 kable(type_totals)
 
 type_totals2 = cbind(type_totals[ ,c(1,2)],names(type_totals)[2])
@@ -95,3 +98,15 @@ OverTime = ggplot(pollen, aes(x = Date, y = Total.Pollen.Count)) +
 ```{r}
 OverTime
 ```
+
+```{r echo = FALSE}
+pollen2 = pollen[pollen$City!="Louisville", ]
+part1 = type_totals$Type[1:13]
+part2 = type_totals$Type[14:26]
+part3 = type_totals$Type[27:39]
+all_dates = levels(factor(pollen2$Date))
+all_dates = as.Date(all_dates)
+
+
+```
+

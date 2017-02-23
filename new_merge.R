@@ -1,11 +1,13 @@
 #this is to be edited for use in merging the data from other cities.
 
+#broken
 
-files = list.files(path = "/Users/nvmoorma/Documents/Pollen/Pollen_csvs/", pattern="*.csv")
+
+files = list.files(path = "~/Pollen/Pollen_csvs/", pattern="*.csv")
 pollen_files = files[grep(pattern="Pollen|POLLEN",files)]
 mold_files = files[grep(pattern="Mold|MOLD",files)]
 
-setwd("/Users/nvmoorma/Documents/Pollen/Pollen_csvs")
+setwd("~/Pollen/Pollen_csvs")
 pollen_names = colnames(read.delim(file=pollen_files[1], header=TRUE, sep=","))
 for (i in 2:length(pollen_files)){
   temp = colnames(read.delim(file=pollen_files[i], header=TRUE, sep=","))
@@ -17,7 +19,7 @@ for (i in 2:length(pollen_files)){
 }
 
 
-setwd("/Users/nvmoorma/Documents/Pollen/Pollen_csvs")
+setwd("~/Pollen/Pollen_csvs")
 mold_names = colnames(read.delim(file=mold_files[1], header=TRUE, sep=","))
 for (i in 2:length(mold_files)){
   temp = colnames(read.delim(file=mold_files[i], header=TRUE, sep=","))
@@ -29,7 +31,7 @@ for (i in 2:length(mold_files)){
 }
 mold_names = mold_names[!mold_names %in% c("Date")]
 
-setwd("/Users/nvmoorma/Documents/Pollen/Pollen_csvs")
+setwd("~/Pollen/Pollen_csvs")
 first_pollen = read.delim(file=pollen_files[1], header=TRUE, sep=",")
 pollen = first_pollen[,1]
 for (i in 2:length(pollen_names)) {
@@ -65,7 +67,7 @@ pollen = pollen[rowSums(is.na(pollen[ ,2:length(pollen[1, ])]))!=(length(pollen[
 pollen = pollen[ ,colSums(is.na(pollen))!=length(pollen[,1])]
 rownames(pollen) = 1:length(pollen[,1])
 
-write.csv(pollen,"/Users/nvmoorma/Documents/pollen.csv")
+write.csv(pollen,"~/Pollen/HouPollen.csv")
 #now go to excel, and rearrange the dates to be in order. check for duplicate dates
 
 
@@ -77,7 +79,7 @@ write.csv(pollen,"/Users/nvmoorma/Documents/pollen.csv")
 
 
 
-setwd("/Users/nvmoorma/Documents/Pollen/Pollen_csvs")
+setwd("~/Pollen/Pollen_csvs")
 first_mold = read.delim(file=mold_files[1], header=TRUE, sep=",")
 mold = first_mold[,1]
 for (i in 2:length(mold_names)) {
@@ -113,7 +115,7 @@ mold = mold[rowSums(is.na(mold[ ,2:length(mold[1, ])]))!=(length(mold[1, ])-1), 
 mold = mold[ ,colSums(is.na(mold))!=length(mold[ ,1])]
 rownames(mold) = 1:length(mold[ ,1])
 
-write.csv(mold,"/Users/nvmoorma/Documents/mold.csv")
+write.csv(mold,"~/Pollen/mold.csv")
 #now go to excel, and rearrange the dates to be in order. check for duplicate dates
 
 

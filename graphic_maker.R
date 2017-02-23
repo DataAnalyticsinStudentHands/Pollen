@@ -5,7 +5,7 @@ library(RColorBrewer)
 library(dplyr)
 library(knitr)
 
-setwd("/Volumes/KINGSTON/Pollen")
+setwd("~/Pollen")
 pollen = read.delim("AApollen.csv", header = TRUE, sep = ",")
 pollen = pollen[,-c(1)]
 city_names = levels(pollen[,1])

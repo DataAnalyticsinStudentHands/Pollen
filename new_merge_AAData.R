@@ -1,8 +1,8 @@
-pollen_files = list.files(path = "/Volumes/KINGSTON/Pollen/AAData_csvs/", pattern="*.csv")
+pollen_files = list.files(path = "~/Pollen/AAData_csvs/", pattern="*.csv")
 city_names = c("College Station", "Flower Mound", "Georgetown", "Houston", "Knoxville", "Lexington", "Little Rock", 
                "Louisville", "Oklahoma City", "Rogers", "San Antonio", "Tulsa", "Waco")
 
-setwd("/Volumes/KINGSTON/Pollen/AAData_csvs")
+setwd("~/Pollen/AAData_csvs")
 pollen_names = colnames(read.delim(file=pollen_files[1], header=TRUE, sep=","))
 for (i in 2:length(pollen_files)){
   temp = colnames(read.delim(file=pollen_files[i], header=TRUE, sep=","))
@@ -16,7 +16,7 @@ pollen_names = pollen_names[2:length(pollen_names)]
 pollen_names = c("City",pollen_names)
 
 
-setwd("/Volumes/KINGSTON/Pollen/AAData_csvs")
+setwd("~/Pollen/AAData_csvs")
 first_pollen = read.delim(file=pollen_files[1], header=TRUE, sep=",")
 for (City in city_names) {
   if (grepl(tolower(City),tolower(pollen_files[1]))) {
@@ -65,7 +65,7 @@ rownames(pollen) = 1:length(pollen[,1])
 names(pollen)[names(pollen)=="Asteraceae..Excluding.Ambrosia.and.Artemisia."] <- "Asteraceae"
 
 
-write.csv(pollen,"/Volumes/KINGSTON/Pollen/AApollen.csv")
+write.csv(pollen,"~/Pollen/AApollen.csv")
 
 
 
