@@ -106,7 +106,20 @@ part2 = type_totals$Type[14:26]
 part3 = type_totals$Type[27:39]
 all_dates = levels(factor(pollen2$Date))
 all_dates = as.Date(all_dates)
+pollen2$Date = as.Date(pollen2$Date)
 
+zeros = rep(0, length(pollen2[1,])-2)
+add_on = rep(0, length(pollen2[1,]))
+by(pollen2, City, function(y) {
+  apply(all_dates, 1, function(x) { 
+    if (x[2] %in% all_dates) {                         #incorrect, check if all_dates date is in y
+      add_on = rbind(add_on,c(x[1:2],zeros))
+   }
+  })
+})
+add_on = add_on[2:length(add_on[,1]), ]
+names(add_on) = names(pollen2)
+pollen2 = rbind(pollen2,add_on)
 
 ```
 
